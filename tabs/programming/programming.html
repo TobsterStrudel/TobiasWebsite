@@ -27,9 +27,39 @@
         <div class="container">
             <section>
                 <h2>Programming</h2>
-                <p>The chances are low that this tab actually survives... we'll see.</p>
+                <h3>This page is dedicated to all things techy, not only programming.</h3>
             </section>
-
+            <section>
+            	<h4>Continuing my web dev rant on the front page...</h4>
+                <p>
+                    Most, if not all, mainstream website creation tools are geared towards business owners. Concerned with payment integration, SEO, all that jazz. So I've decided to make the whole site in the OG triple-threat stack (HTML, CSS, Javascript). <br>
+                    Cloudflare (my DNS registrar) has a great built-in web-hosting tool that allows it to auto-update with a git commit. I'd love to host it myself, but ISPs don't sell static IPs to residential customers anymore ;(( <br>
+                    If this website becomes enough of a priority, I plan on self-hosting by either hiding a server on our massive esxi machine at my job (with a whole /25 block of IPs), or forwarding 443 on my local network and put my trust in Cloudflare's "proxy option" while figuring out DDNS. <br>
+                	<h4>The main reasons for self-hosting a website would be:</h4>
+                    <ul>
+                    	<li style="font-size:18px";>Running other services to be used on the same server</li>
+                    	The most versatile reason: you could run background processes like timers, counters, custom monitoring solutions, custom logs, ANOTHER WEBSERVER.
+                    	<li style="font-size:18px";>Independence from subscriptions services</li>
+                    	Around $5.99 to $500 a month depending on shared vs. dedicated hosting and some other factors if you used a subscription. With self-hosting you pay for power, hardware, domain/DNS, and however many hours you spend reading nginx documentation.
+                    	<li style="font-size:18px";>Easy data removal for contingency</li>
+                    	If you're in hot water for the content on your site, what's easier: cancelling a service/deleting accounts or unplugging the machine and driving a nail through the drive?
+                    	<li style="font-size:18px";>Brownie points</li>
+                    	"Yeah, I host my website on my home server" "Whoaaaaa!"
+                    </ul>
+                </p>
+            <section/>
+                <section>
+				<h4>My planned projects:</h4>
+				<ul>
+                    <li style="font-size:18px";>DaultBox</li>
+                    A web-based fileserver for the family, named after dropbox. My father has been overpaying for 2TB of DropBox storage since 2011 and my wife has run out of room on her Google Drive.
+                    I tried a local Samba fileshare first, but after moving out I wanted to make it easier with something web-based with a friendly UI. I'm thinking some API stuff to, for integration with other apps.
+                    <li style="font-size:18px";>Finish fixing my Roland FP-30</li>
+                	Very little left to do at this point, just need to secure the circuitry in the case and find the screws...
+                    <li style="font-size:18px";>DJ Steering Wheel</li>
+                    My brother's 2001 ranger has a steering wheel that it missing all the options. I'd like to mod it with a cutoff knob, eq sliders, track faders, pitch/tempo control for two tracks.
+                </ul>
+			</section>
             <section>
                 <h2>Check out this project from college!</h2>
                 <a href="TSPWebApp/webpage.html">Traveling Salesman Algorithms</a>
