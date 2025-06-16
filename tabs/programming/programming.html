@@ -64,7 +64,71 @@
                 <h2>Check out this project from college!</h2>
                 <a href="TSPWebApp/webpage.html">Traveling Salesman Algorithms</a>
             </section>
-
+			<comments>
+			<h2>Comments (WIP)</h2>
+			<div id="comment"></div>
+			<script>
+				function createCommentSection(){
+				let data = {
+	   "comment":{
+		  "user":"TobsterStrudel",
+		  "timestamp":"4:40PM 6/16/25",
+		  "content":"This is a test of the commenting system",
+		  "edited":false,
+		  "replies":[
+			 {
+				"user":"jetmaster231",
+				"timestamp":"4:45PM 6/16/25",
+				"content":"This is a reply",
+				"edited":false,
+				"replies":[
+				   {
+					  "user":"TobsterStrudel",
+					  "timestamp":"5:06PM 6/16/25",
+					  "content":"This is reply from OP",
+					  "edited":false,
+					  "replies":[
+					 
+					  ]
+				   },
+				   {
+					  "user":"trees",
+					  "timestamp":"6:09PM 6/16/25",
+					  "content":"This is reply from not OP. And this messaged has been edited",
+					  "edited":true,
+					  "replies":[
+					 
+					  ]
+				   }
+				]
+			 },
+			 {
+				"user":"jetmaster231",
+				"timestamp":"4:10PM 6/16/25",
+				"content":"How am I replying before the top comment was posted?",
+				"edited":false,
+				"replies":[
+			   
+				]
+			 }
+		  ]
+	   }
+	};
+					console.log(data.comment);
+					document.getElementById("comment").innerHTML = formatComment(data.comment);
+				}
+				function formatComment(json){
+					const comment = document.createElement("div");
+					comment.innerHTML = "User: " + json.user +
+										"Timestamp:" + json.timestamp +
+										"Content: " + json.content
+										;
+					return comment;
+				}
+			</script>
+			<script>createCommentSection();</script>
+			<div id="comments"></div>
+			</comments>
             <section>
                 <h2>Contact Me</h2>
                 <p>You can reach me at: tobiasdault@gmail.com</p>
