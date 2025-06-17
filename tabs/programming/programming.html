@@ -88,15 +88,14 @@
 					fetch('./comments.json')
 						.then(response => response.json())
 						.then(data => {
-							json = data; // Now this is the real object
-							console.log(json.comments); // Logs the array
+							json = data;
+							console.log(json.comments);
 
 							json.comments.forEach(comment => {
 								document.getElementById("comment").appendChild(formatComment(comment));
 							});
 						});
-					
-					console.log(json);
+					console.log(json.comments);
 					for(let i = 0; i < json.comments.length; i++){
 						let op = json.comments[i].user;
 						console.log(op);
