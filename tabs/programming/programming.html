@@ -83,7 +83,18 @@
 			<div id="comment"></div>
 			<script>
 				function createCommentSection(){
-					let json = loadComments();
+					let json;
+
+					fetch('./comments.json')
+						.then(response => response.json())
+						.then(data => {
+							json = data; // Now this is the real object
+							console.log(json.comments); // Logs the array
+
+							json.comments.forEach(comment => {
+								document.getElementById("comment").appendChild(formatComment(comment));
+							});
+						});
 					console.log(json);
 					for(let i = 0; i < json.comments.length; i++){
 						let op = json.comments[i].user;
@@ -116,15 +127,6 @@
 						comment.appendChild(repliesContainer);
 					}
 					return comment;
-				}
-				
-				async function loadComments() {
-    				try {
-        				const response = await fetch('./comments.json');
-        				return await response.json();
-    				} catch (error) {
-     				   console.error("Error loading comments:", error);
-    				}
 				}
 			</script>
 			<script>createCommentSection();</script>
