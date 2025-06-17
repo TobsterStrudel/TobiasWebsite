@@ -98,6 +98,7 @@
 				function formatComment(json, op){
 					const comment = document.createElement("div");
 					comment.id = commentCount;
+					commentCount++;
 					//CONDITIONAL FORMATTING//
 					let flair = "";
 					if(json.user === op){
@@ -120,7 +121,6 @@
 						json.replies.forEach(reply => {repliesContainer.appendChild(formatComment(reply, op));});
 						comment.appendChild(repliesContainer);
 					}
-					commentCount++;
 					return comment;
 				}
 				function reply(){
