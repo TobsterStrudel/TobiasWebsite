@@ -84,6 +84,7 @@
 			<script>
 				function createCommentSection(){
 					let json = loadComments();
+					console.log(json);
 					for(let i = 0; i < json.comments.length; i++){
 						let op = json.comments[i].user;
 						console.log(op);
