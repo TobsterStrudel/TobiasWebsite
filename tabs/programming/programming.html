@@ -82,6 +82,7 @@
 			<h2>Comments (WIP)</h2>
 			<div id="comment"></div>
 			<script>
+				var commentCount = 0;
 				function createCommentSection(){
 					let json = "";
 
@@ -100,6 +101,7 @@
 				function formatComment(json, op){
 					console.log(json);
 					const comment = document.createElement("div");
+					comment.outerHTML = "<div id=\"" + commentCount + "\" </div>";
 					//CONDITIONAL FORMATTING//
 					let flair = "";
 					if(json.user === op){
@@ -113,7 +115,8 @@
 					comment.className = "comment-box";
 					comment.innerHTML = "<h3 style=\"margin: 0;\">" + json.user + " " + flair + "</h3>" +
 										"<h4 style=\"margin: 0;\">" + json.timestamp + "</h4>" +
-										"<p style=\"margin: 2px 0 0 0;\">" + json.content + "</p>"
+										"<p style=\"margin: 2px 0 0 0;\">" + json.content + "</p>" +
+										"<button onclick=""></button>"
 										;
 					if(json.replies && json.replies.length > 0){
 						const repliesContainer = document.createElement("div");
@@ -121,7 +124,11 @@
 						json.replies.forEach(reply => {repliesContainer.appendChild(formatComment(reply, op));});
 						comment.appendChild(repliesContainer);
 					}
+					commentCount++;
 					return comment;
+				}
+				function reply(){
+				
 				}
 			</script>
 			<script>createCommentSection();</script>
