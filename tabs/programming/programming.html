@@ -83,8 +83,7 @@
 			<div id="comment"></div>
 			<script>
 				function createCommentSection(){
-					let json = "";
-					fetch('./comments.json').then(response => { json = response.json(); });
+					let json = loadComments();
 					for(let i = 0; i < json.comments.length; i++){
 						let op = json.comments[i].user;
 						console.log(op);
@@ -118,6 +117,14 @@
 					return comment;
 				}
 				
+				async function loadComments() {
+    				try {
+        				const response = await fetch('./comments.json');
+        				return await response.json();
+    				} catch (error) {
+     				   console.error("Error loading comments:", error);
+    				}
+				}
 			</script>
 			<script>createCommentSection();</script>
 			<div id="comments"></div>
