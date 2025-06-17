@@ -83,7 +83,8 @@
 			<div id="comment"></div>
 			<script>
 				function createCommentSection(){
-					let json = fetch("./comments.json");
+					let json = "";
+					fetch('./comments.json').then(response => { json = response.json(); });
 					for(let i = 0; i < json.comments.length; i++){
 						let op = json.comments[i].user;
 						console.log(op);
@@ -116,6 +117,7 @@
 					}
 					return comment;
 				}
+				
 			</script>
 			<script>createCommentSection();</script>
 			<div id="comments"></div>
