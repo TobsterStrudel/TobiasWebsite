@@ -97,7 +97,7 @@
 				}
 				function formatComment(json, op){
 					const comment = document.createElement("div");
-					comment.name = commentCount;
+					comment.id = commentCount;
 					//CONDITIONAL FORMATTING//
 					let flair = "";
 					if(json.user === op){
