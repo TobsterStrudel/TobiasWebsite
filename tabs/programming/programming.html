@@ -85,23 +85,19 @@
 				var commentCount = 0;
 				function createCommentSection(){
 					let json = "";
-
 					fetch('./comments.json')
 						.then(response => response.json())
 						.then(data => {
 							json = data;
-							console.log(json.comments);
 							for(let i = 0; i < json.comments.length; i++){
 								let op = json.comments[i].user;
 								document.getElementById("comment").appendChild(formatComment(json.comments[i], op));
 					}
 						});
-
 				}
 				function formatComment(json, op){
-					console.log(json);
 					const comment = document.createElement("div");
-					comment.idName = commentCount;
+					comment.name = commentCount;
 					//CONDITIONAL FORMATTING//
 					let flair = "";
 					if(json.user === op){
