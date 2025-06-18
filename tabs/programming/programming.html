@@ -83,22 +83,30 @@
 			<div id="comment"></div>
 			<script>
 				var commentCount = 0;
+				let json = "";
 				function createCommentSection(){
-					let json = "";
+					let id = 0;
+					while (true) {
+						let element = document.getElementById(id.toString());
+						if (!element) break;
+						element.remove();
+						id++;
+					}
 					fetch('./comments.json')
 						.then(response => response.json())
 						.then(data => {
 							json = data;
-							for(let i = 0; i < json.comments.length; i++){
-								let op = json.comments[i].user;
-								document.getElementById("comment").appendChild(formatComment(json.comments[i], op));
+							
 					}
 						});
+						for(let i = 0; i < json.comments.length; i++){
+								let op = json.comments[i].user;
+								document.getElementById("comment").appendChild(formatComment(json.comments[i], op));
+						}
 				}
 				function formatComment(json, op){
 					const comment = document.createElement("div");
-					comment.id = commentCount;
-					commentCount++;
+					comment.id = json.id;
 					//CONDITIONAL FORMATTING//
 					let flair = "";
 					if(json.user === op){
@@ -112,8 +120,8 @@
 					comment.className = "comment-box";
 					comment.innerHTML = "<h3 style=\"margin: 0;\">" + json.user + " " + flair + "</h3>" +
 										"<h4 style=\"margin: 0;\">" + json.timestamp + "</h4>" +
-										"<p style=\"margin: 2px 0 0 0;\">" + json.content + "</p>" +
-										"<button id=\"button" + commentCount + "\"onclick=\"reply(this.id)\">Reply</button>"
+										"<p style=\"margin: 2px 0 0 0;\" id=\"content" + json.id + "\">" + json.content + "</p>" +
+										"<button id=\"button" + json.id + "\"onclick=\"reply(this.id)\">Reply</button>"
 										;
 					if(json.replies && json.replies.length > 0){
 						const repliesContainer = document.createElement("div");
@@ -121,11 +129,124 @@
 						json.replies.forEach(reply => {repliesContainer.appendChild(formatComment(reply, op));});
 						comment.appendChild(repliesContainer);
 					}
+					commentCount++;
 					return comment;
 				}
+				
 				function reply(id){
-					console.log("Comment id: " + id);
+					document.getElementById(id).style.display = 'none';
+					
+					let usertext = document.createElement("text");
+					usertext.innerHTML = "Enter Username:";
+					usertext.id = "userText";
+					let userbox = document.createElement("input");
+					userbox.id = "userboxTemp";
+					userbox.style.width = "80px";
+					userbox.maxLength = "20";
+					
+					let textbox = document.createElement("input");
+					textbox.id = "textboxTemp";
+					textbox.style.height = "80px";
+					textbox.style.width = "300px";
+					textbox.maxLength = "300";
+					commentID = id.replace("button", 'content');
+					
+					let newline = document.createElement("br");
+					newline.id = "brTemp";
+					
+					let newline2 = document.createElement("br");
+					newline2.id = "brTemp2";
+					
+					let submit = document.createElement("button");
+					submit.innerHTML = "Submit";
+					submit.id = id.replace("button", "submit");
+					submit.setAttribute("onclick","submitComment(this.id)");
+					
+					let cancel = document.createElement("button");
+					cancel.innerHTML = "Cancel";
+					cancel.id = id.replace("button", "cancel");
+					cancel.setAttribute("onclick", "cancelComment(this.id);");
+					document.getElementById(commentID).appendChild(newline);
+					document.getElementById(commentID).appendChild(usertext);
+					document.getElementById(commentID).appendChild(userbox);
+					document.getElementById(commentID).appendChild(newline2);
+					document.getElementById(commentID).appendChild(textbox);
+					document.getElementById(commentID).appendChild(submit);
+					document.getElementById(commentID).appendChild(cancel);
 				}
+				function cancelComment(id){
+						document.getElementById(commentID).removeChild(document.getElementById("textboxTemp"));
+						document.getElementById(commentID).removeChild(document.getElementById("userboxTemp"));
+						document.getElementById(commentID).removeChild(document.getElementById("userText"));
+						document.getElementById(commentID).removeChild(document.getElementById("brTemp"));
+						document.getElementById(commentID).removeChild(document.getElementById("brTemp2"));
+						document.getElementById(commentID).removeChild(document.getElementById(id.replace("cancel","submit")));
+						document.getElementById(commentID).removeChild(document.getElementById(id));
+						document.getElementById(id.replace("cancel", "button")).style.display = 'block';
+				}
+				function submitComment(id){
+					if(!document.getElementById("textboxTemp").value){
+						let textWarning = document.createElement("text");
+						textWarning.innerHTML = "you gotta type something";
+						textWarning.id = "twarn";
+					}
+					if(!document.getElementById("userboxTemp").value){
+						let userWarning = document.createElement("text");
+						userWarning.innerHTML = "Username Required";
+						userWarning.id = "uwarn";
+					}
+					id = id.replace("submit","");
+					document.getElementById(commentID).removeChild(document.getElementById("brTemp"));
+					document.getElementById(commentID).removeChild(document.getElementById("userText"));
+					document.getElementById(commentID).removeChild(document.getElementById("submit" + id));
+					document.getElementById(commentID).removeChild(document.getElementById("cancel" + id));
+					document.getElementById(id.replace("button" + id)).style.display = 'block';
+					
+					let timestamp = new Date().toLocaleString('en-US', {
+						hour: 'numeric',
+						minute: '2-digit',
+						hour12: true,
+						month: 'numeric',
+						day: 'numeric',
+						year: '2-digit'
+						});
+					
+					let comment = {
+						"id": commentCount,
+						user: document.getElementById("userboxTemp").value,
+						"timestamp": timestamp,
+						"content":document.getElementById("textboxTemp").value,
+						"edited":false,
+						"replies":[
+						 
+						]
+					}
+					document.getElementById(commentID).removeChild(document.getElementById("textboxTemp"));
+					document.getElementById(commentID).removeChild(document.getElementById("userboxTemp"));
+					
+					findAndAddReply(id, comment);
+					createCommentSection();
+				}
+				function findAndAddReply(id, newComment) {
+					function recursiveFindAndAdd(comments) {
+						for (let c of comments) {
+							if (c.id === id) {
+								c.replies.push(newComment);
+								return true;
+							} else if (c.replies && c.replies.length > 0) {
+								const added = recursiveFindAndAdd(c.replies);
+								if (added) return true;
+							}
+						}
+						return false;
+					}
+
+					return recursiveFindAndAdd(json.comments);
+				}
+
+
+
+				
 			</script>
 			<script>createCommentSection();</script>
 			<div id="comments"></div>
