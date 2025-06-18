@@ -13,7 +13,7 @@ header {
     overflow: hidden;
 }
 h1 {
-	color : white; /* For the top title */
+	color : white;
 }
 p {
 	margin:0
@@ -44,17 +44,15 @@ nav ul li a:hover {
     background-color: #555;
 }
 main {
-    margin-top: 150px; /* Adjust as needed */
+    margin-top: 150px;
 }
 #timer {
     font-size: 24px;
     text-align: center;
 }
-/* Styles for online status */
 .online {
     color: green;
 }
-/* Styles for offline status */
 .offline {
     color: red;
 }
