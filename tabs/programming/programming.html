@@ -96,12 +96,11 @@
 						.then(response => response.json())
 						.then(data => {
 							json = data;
-							
-						});
-						for(let i = 0; i < json.comments.length; i++){
+							for(let i = 0; i < json.comments.length; i++){
 								let op = json.comments[i].user;
 								document.getElementById("comment").appendChild(formatComment(json.comments[i], op));
-						}
+							}
+						});
 				}
 				function formatComment(json, op){
 					const comment = document.createElement("div");
